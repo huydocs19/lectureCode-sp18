@@ -1,10 +1,59 @@
-public class Lists1Exercises {
-    /** Returns an IntList identical to L, but with
+public class IntList {
+	public int first;
+	public IntList rest;
+
+	public IntList(int f, IntList r) {
+		first = f;
+		rest = r;
+	}
+
+	/** Return the size of the list using... recursion! */
+	public int size() {
+		if (rest == null) {
+			return 1;
+		}
+		return 1 + this.rest.size();
+	}
+
+	/** Return the size of the list using no recursion! */
+	public int iterativeSize() {
+		IntList p = this;
+		int totalSize = 0;
+		while (p != null) {
+			totalSize += 1;
+			p = p.rest;
+		}
+		return totalSize;
+	}
+
+	/** Returns the ith item of this IntList. */
+	public int get(int i) {
+		if (i == 0) {
+			return first;
+		}
+		return rest.get(i - 1);
+	}
+   /** Returns an IntList identical to L, but with
       * each element incremented by x. L is not allowed
       * to change. */
     public static IntList incrList(IntList L, int x) {
         /* Your code here. */
-        return L;        
+        
+        IntList p = new IntList(0, null);
+        IntList temp = p;
+       while(L.rest != null) {
+          
+          p.first = L.first + x;
+          p.rest = new IntList(0, null);
+          p = p.rest;
+          L = L.rest;
+       
+       }
+       p.first = L.first + x;
+       p.rest = null;
+
+      
+        return temp;        
     }
 
     /** Returns an IntList identical to L, but with
@@ -12,7 +61,14 @@ public class Lists1Exercises {
       * the 'new' keyword. */
     public static IntList dincrList(IntList L, int x) {
         /* Your code here. */
-        return L;
+        IntList temp = L;
+       while(L != null) {
+          
+          L.first += x;
+          L = L.rest;
+       
+       }
+        return temp;
     }
 
     public static void main(String[] args) {
@@ -26,8 +82,8 @@ public class Lists1Exercises {
         // Test your answers by uncommenting. Or copy and paste the
         // code for incrList and dincrList into IntList.java and
         // run it in the visualizer.
-        // System.out.println(L.get(1));
-        // System.out.println(incrList(L, 3));
-        // System.out.println(dincrList(L, 3));        
+        System.out.println(L.get(1));
+        System.out.println(incrList(L, 3));
+        System.out.println(dincrList(L, 3));        
     }
 }
